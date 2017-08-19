@@ -6,7 +6,7 @@ class User < ApplicationRecord
               format: { with: VALID_EMAIL_REGEX },
               uniqueness: { case_sensitive: false }
   has_secure_password # has_secure_passwordを追加するとpasswordとpassword_confirmationが自動で追加される
-  validates :password, presence: true, length: { minimum: 6 }
+  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
   # 渡された文字列のハッシュ値を返す
   def User.digest(string)

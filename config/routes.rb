@@ -8,10 +8,19 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
-  resources :users
+  resources :users do
+    # memberの場合:idを含むがcollectionの場合は:idを含まない
+    member do
+      # /users/:id/...
+      # GET /users/:id/following
+      # GET /users/:id/followers
+      get :following, :followers
+    end
+  end
   resources :account_activations, only: [:edit]
   # GET /account_activations/:id/edit
   # params[:id] <== 有効化トークン
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :microposts, only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]
 end

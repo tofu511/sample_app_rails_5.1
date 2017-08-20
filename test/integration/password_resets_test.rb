@@ -22,6 +22,7 @@ class PasswordResetsTest < ActionDispatch::IntegrationTest
      assert_not flash.empty?
      assert_redirected_to root_url
      # パスワード再設定フォームのテスト
+     # userオブジェクトにしか存在しないreset_tokenを確認するためにassignsを使用する
      user = assigns(:user)
      # メールアドレスが無効
      get edit_password_reset_path(user.reset_token, email: "")
